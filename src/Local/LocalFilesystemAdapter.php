@@ -390,7 +390,7 @@ class LocalFilesystemAdapter implements FilesystemAdapter, ChecksumProvider
         }
 
         $permissions = $fileperms & 0777;
-        $visibility = $this->visibility->inverseForFile($permissions);
+        $visibility = is_dir($location) ? $this->visibility->inverseForDirectory($permissions) : $this->visibility->inverseForFile($permissions);
 
         return new FileAttributes($path, null, $visibility);
     }
