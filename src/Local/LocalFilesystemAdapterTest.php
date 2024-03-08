@@ -820,4 +820,17 @@ class LocalFilesystemAdapterTest extends FilesystemAdapterTestCase
 
         $this->assertSame('0d5f5c7f', $checksum);
     }
+
+    /**
+     * @test
+     */
+    public function test_private_directory_visibility(): void
+    {
+        $adapter = new LocalFilesystemAdapter(static::ROOT);
+        $adapter->createDirectory('private', new Config(['visibility' => 'private']));
+
+        $visibility = $adapter->visibility('private');
+
+        $this->assertEquals('private', $visibility->visibility());
+    }
 }
